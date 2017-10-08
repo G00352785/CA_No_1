@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CA #1</title>
+</head>
+<body>
+<div id="movieEdit">
+    <h1>Edit Movie Data</h1>
+    Movie ID: <input type="number" id="idInput" name="idInput"/>
+    </br>
+    Movie Title: <input type="string" id="titleInput" name="titleInput"/>
+    </br>
+    Date Published: <input type="date" id="dateInput" name="dateInput"/>
+    </br>
+    <button id="updateButton">Update</button>
+</div>
+
+<div id="tableData">
+    <table>
+        <tr><th>Movie ID</th><th>Movie Title</th><th>Date Published</th><th>Update</th><th>Delete</th></tr>
+        <tr id = "1"><td>01</td><td>Fight Club</td><td>10/09/1999</td><td><button onclick="updateRow(this)">Update Movie Information</button></td><td><button onclick="deleteRow(this)">Delete Movie Information</button></td></tr>
+        <tr id = "2"><td>02</td><td>V For Vendetta</td><td>07/03/2006</td><td><button onclick="updateRow(this)">Update Movie Information</button></td><td><button onclick="deleteRow(this)">Delete Movie Information</button></td></tr>
+        <tr id = "3"><td>03</td><td>Terminator 2</td><td>16/08/1991</td><td><button onclick="updateRow(this)">Update Movie Information</button></td><td><button onclick="deleteRow(this)">Delete Movie Information</button></td></tr>
+        <tr id = "4"><td>04</td><td>Seven</td><td>15/09/1995</td><td><button onclick="updateRow(this)">Update Movie Information</button></td><td><button onclick="deleteRow(this)">Delete Movie Information</button></td></tr>
+        <tr id = "5"><td>05</td><td>Pulp Ficton</td><td>10/09/1994</td><td><button onclick="updateRow(this)">Update Movie Information</button></td><td><button onclick="deleteRow(this)">Delete Movie Information</button></td></tr>
+    </table>
+</div>
+
+</body>
+</html>
