@@ -1,22 +1,53 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>CA #1</title>
+    <style>
+        h1 {text-align:center; font-size: 200%}
+        .outer-div {padding: 100px 100px 100px 100px;}
+        .inner-div {margin:0 auto; width: 475px; font-size: 200%;}
+        /*  updateButton styles */
+        .updateButton {float: left; background-color: #4CAF50;  border: none;  color: white;  padding: 15px 32px;  text-align: center;
+            text-decoration: none;  display: inline-block;  font-size: 16px;  margin: 4px 2px;  cursor: pointer;
+            -webkit-transition-duration: 0.4s; transition-duration: 0.4s; width: 140px; height: 75px;}
+        .updateButton:hover {background-color: #3e8e41}
+        .updateButton:active {background-color: #3e8e41;  box-shadow: 0 5px #666;  transform: translateY(4px);}
+        /*nextButton styles */
+        .nextButton {float: right; background-color: #4CAF50; border: none;  color: white;  padding: 15px 32px;  text-align: center;
+            text-decoration: none;  display: inline-block;  font-size: 16px;  margin: 4px 2px;  cursor: pointer;
+            -webkit-transition-duration: 0.4s; transition-duration: 0.4s;  width: 140px; height: 75px;}
+        .nextButton:hover {background-color: #3e8e41}
+        .nextButton:active {background-color: #3e8e41;  box-shadow: 0 5px #666;  transform: translateY(4px);}
+        /*previousPage styles */
+        .previousPage {float: left; background-color: #4CAF50; border: none;  color: white;  padding: 15px 32px;  text-align: center;
+            text-decoration: none;  display: inline-block;  font-size: 16px;  margin: 4px 2px;  cursor: pointer;
+            -webkit-transition-duration: 0.4s; transition-duration: 0.4s;  width: 140px; height: 75px;}
+        .previousPage:hover {background-color: #3e8e41}
+        .previousPage:active {background-color: #3e8e41;  box-shadow: 0 5px #666;  transform: translateY(4px);}
+        /* table styles */
+        table {margin:1em auto; border-collapse: collapse; width: 100%;}
+        th, td {  text-align: left;  padding: 8px;}
+        tr:nth-child(even){background-color: #f2f2f2}
+        th {background-color: #4CAF50; color: white;}
+    </style>
 </head>
 <body>
-<div id="movieEdit" atyle="display: block">
-    <div>
-    <h1>Edit Movie Data</h1>
-    Movie ID: <input type="number" id="idInput" name="idInput"/>
-    </br>
-    Movie Title: <input type="string" id="titleInput" name="titleInput"/>
-    </br>
-    Date Published: <input type="date" id="dateInput" name="dateInput"/>
-    </br>
+<div class="outer-div">
+    <div id="movieEdit" atyle="display: block" class="inner-div">
+        <div>
+            <h1>Edit Movie Data</h1>
+            Movie ID: <input type="number" class="" id="idInput" name="idInput"/>
+            </br>
+            Movie Title: <input type="string" id="titleInput" name="titleInput"/>
+            </br>
+            Date Published: <input type="date" id="dateInput" name="dateInput"/>
+            </br>
+        </div>
+        <div><button id="updateButton" class="updateButton" onclick="addRow()">Update</button></div>
+        <div><button id="nextButton" class="nextButton" onclick="nextPage('movieEdit', 'tableData')">Next Page</button></div>
     </div>
-    <div><button id="updateButton" onclick="addRow()">Update</button></div>
-    <div><button id="nextButton" onclick="nextPage('movieEdit', 'tableData')">Next Page</button></div>
 </div>
 
 <div id="tableData" style="display: none">
@@ -28,8 +59,16 @@
         <tr id = "4"><td>04</td><td>Seven</td><td>15/09/1995</td><td><button onclick="goToUpdateForm(this)">Update Movie Information</button></td><td><button onclick="deleteRow(this)">Delete Movie Information</button></td></tr>
         <tr id = "5"><td>05</td><td>Pulp Ficton</td><td>10/09/1994</td><td><button onclick="goToUpdateForm(this)">Update Movie Information</button></td><td><button onclick="deleteRow(this)">Delete Movie Information</button></td></tr>
     </table>
-    <div><button id="previousPage" onclick="nextPage('tableData', 'movieEdit')">Previous Page</button></div>
+    <div><button id="previousPage" class="previousPage" onclick="nextPage('tableData', 'movieEdit')">Previous Page</button></div>
 </div>
+
+<div style="display: none" id="buttonsTemplate">
+    <td><button onclick="updateRow(this)">Update Movie Information</button></td>
+    <td><button onclick="deleteRow(this)">Delete Movie Information</button></td>
+
+
+</div>
+
 
 <script>
     /*start of pagination function */
@@ -43,27 +82,32 @@
     /*end of pagination function */
     /* start of data addition function */
     function addRow() {
-            var idElem = document.getElementById("idInput");
-            var titleElem = document.getElementById("titleInput");
-            var dateElem = document.getElementById("dateInput");
-            var movieTitle = {};
-            movieTitle.id = idElem.value;
-            movieTitle.name = titleElem.value;
-            movieTitle.date = dateElem.value;
-            idElem.value = "";
-            titleElem.value="";
-            dateElem.value ="";
-            insertMovieIntoTable(movieTitle);
+        var idElem = document.getElementById("idInput");
+        var titleElem = document.getElementById("titleInput");
+        var dateElem = document.getElementById("dateInput");
+        var movieTitle = {};
+        movieTitle.id = idElem.value;
+        movieTitle.name = titleElem.value;
+        movieTitle.date = new Date(dateElem.value);
+        idElem.value = "";
+        titleElem.value="";
+        dateElem.value ="";
+        insertMovieIntoTable(movieTitle);
     }
     function insertMovieIntoTable(movieTitle) {
         console.log(movieTitle);
-        var movieTable = document.getElementById("tableData");
+        var movieTable = document.getElementById("movieTable");
         var row = movieTable.insertRow(-1);
         var cell = row.insertCell(0);
         cell.innerHTML = movieTitle.id;
         cell = row.insertCell(1);
         cell.innerHTML = movieTitle.name;
         cell = row.insertCell(2);
+        cell.innerHTML = movieTitle.date;
+        cell = row.insertCell(3);
+        var buttonText = document.getElementById("buttonsTemplate").innerHTML;
+        cell = row.insertCell(-1);
+        cell.innerHTML = buttonText;
     }
     /*End of data addition function */
     /*Start of delete row function */
@@ -74,14 +118,15 @@
     }
     /*End of delete row function */
     /*Start of data update function */
-    function goToUpdateForm(buttonElem){
+    function goToUpdateForm(buttonElem, thisDivId, nextDivId){
         var row = buttonElem.closest("tr");
         var rowId = row.getAttribute("id");
         console.log(rowId);
         var movieTitle = {};
-        movieTitle.id      = row.getElementsByTagName("td")[0].firstChild.nodeValue;
-        movieTitle.name    = row.getElementsByTagName("td")[1].firstChild.nodeValue;
-        populateUpdateForm(movieTitle, rowId)
+        movieTitle.id   = row.getElementsByTagName("td")[0].firstChild.nodeValue;
+        movieTitle.name = row.getElementsByTagName("td")[1].firstChild.nodeValue;
+        movieTitle.date = row.getElementsByTagName("td")[2].firstChild.nodeValue;
+        populateUpdateForm(movieTitle, rowId);
     }
     function populateUpdateForm(movieTitle, rowId) {
         console.log(movieTitle);
@@ -90,22 +135,23 @@
         document.getElementById("dateInput").value = movieTitle.date;
         var button = document.getElementById("updateButton");
         button.innerHTML = "Update Movie Information";
-        button.onclick = function(){
+        button.onclick = function() {
             console.log("update clicked "+rowId);
             var movieTitle = {};
-            movieTitle.id      = document.getElementById("studentId").value;
-            movieTitle.name    = document.getElementById("studentName").value;
+            movieTitle.id      = document.getElementById("idInput").value;
+            movieTitle.name    = document.getElementById("titleInput").value;
+            movieTitle.date    = document.getElementById("dateInput").value;
             console.log(movieTitle);
             updateRow(movieTitle, rowId);
         }}
-        function updateRow(movieTitle, rowId){
-            console.log("about to update row "+rowId);
-            var row = document.getElementById(rowId);
-            row.getElementsByTagName("td")[0].innerHTML = movieTitle.id;
-            row.getElementsByTagName("td")[1].innerHTML = movieTitle.name;
-            row.getElementsByTagName("td")[2].innerHTML = movieTitle.date;
-        }
-        /*End of data update function */
+    function updateRow(movieTitle, rowId){
+        console.log("about to update row "+rowId);
+        var row = document.getElementById(rowId);
+        row.getElementsByTagName("td")[0].innerHTML = movieTitle.id;
+        row.getElementsByTagName("td")[1].innerHTML = movieTitle.name;
+        row.getElementsByTagName("td")[2].innerHTML = movieTitle.date;
+    }
+    /*End of data update function */
 </script>
 
 </body>
