@@ -41,18 +41,21 @@
 </div>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    $(function(){
+<script type="text/javascript">
 
 
+    $(document).ready(function(){
 
-        $(".confirmMovie").click(function(){
+        // ADD ROW FUNCTION
+
+        $("confirmMovie").click(function(){
             var id = $("#movieId").val();
             var title = $("#movieTitle").val();
             var date = $("#movieDate").val();
-            var addToTable = "<tr><td><input type='checkbox' name='record'></td><td>" + id + "</td><td>" + title + "</td></tr>" + date + "</td></tr>";
-            $("table tbody").append(addToTable);
+            var newRow = "<tr><td><input type='checkbox' name='record'></td><td>" + id + "</td><td>" + title + "</td></tr>" + date + "</td></tr>";
+            $("table tbody").append(newRow);
         });
 
         // DELETE ROW FUNCTION
