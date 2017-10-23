@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form id="movieForm">
+    <input type="number" id="movieId" placeholder="ID">
+
+    <input type="string" id="movieTitle" placeholder="Movie Title">
+
+    <input type="date" id="movieDate" placeholder="Date Released">
+    <br>
+    <button id="confirmMovie">Confirm</button>
+</form>
+
+<div id="tableDiv">
+    <table>
+        <thead>
+        <tr>
+            <th>Select</th>
+            <th>Movie ID</th>
+            <th>Movie Title</th>
+            <th>Date Released</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td><input type="checkbox" name="record"></td>
+            <td>001</td>
+            <td>Fight Club</td>
+            <td>10/09/1999</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button class="deleteRow">Delete Row</button>
+    <button class="addMovie">Add Movie</button>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+
+    $(function(){
+
+
+
+        $(".confirmMovie").click(function(){
+            var id = $("#movieId").val();
+            var title = $("#movieTitle").val();
+            var date = $("#movieDate").val();
+            var addToTable = "<tr><td><input type='checkbox' name='record'></td><td>" + id + "</td><td>" + title + "</td></tr>" + date + "</td></tr>";
+            $("table tbody").append(addToTable);
+        });
+
+        // DELETE ROW FUNCTION
+
+        $(".deleteRow").click(function(){
+            $("table tbody").find('input[name="record"]').each(function(){
+                if($(this).is(":checked")){
+                    $(this).parents("tr").remove();
+                }
+            });
+        });
+    });
+
+</script>
+</body>
+</html>
